@@ -1,0 +1,54 @@
+<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+<script>
+  var config = {
+    apiKey: "AIzaSyBMiV0zseNoF-LTxduKTmHDTm-2wmfqNCI",
+    authDomain: "ggggg-ff8ad.firebaseapp.com",
+    databaseURL: "https://ggggg-ff8ad.firebaseio.com",
+    projectId: "ggggg-ff8ad",
+    storageBucket: "ggggg-ff8ad.appspot.com",
+    messagingSenderId: "410411529162"
+  };
+  firebase.initializeApp(config);
+</script>
+
+
+
+<script>
+function quNot()
+{
+    switch(Notification.permission.toLowerCase())
+    {
+        case "granted":
+          subscribe();
+            break;
+        case "denied":
+          console.log("=(((");
+            break;
+        case "default":
+          Notification.requestPermission(function(state){
+            if(state == "granted")
+              subscribe();
+            if(state == "default")
+              setTimeout("quNot",3000);
+            });
+            break;
+    }
+}
+
+quNot();
+
+function subscribe()
+{
+  var msg = firebase.messaging();
+  msg.requestPermission().then(function(){
+    msg.getToken().then(function(token){
+      console.log(token);
+      }).catch(function(err){
+      console.log("не удалось получить токен");
+      });
+    }).catch(function(err){
+    console.log(err);
+    });
+}
+
+</script>
